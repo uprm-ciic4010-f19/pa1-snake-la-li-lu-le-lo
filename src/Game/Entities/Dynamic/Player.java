@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.GameStates.PauseState;
+import Game.GameStates.State;
+
 /**
  * Created by AlexVR on 7/2/2018.
  */
@@ -58,6 +61,8 @@ public class Player {
         	moveCounter--; // Supposed to make slow
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
         	// Pause State
+        	State.setState(handler.getGame().pauseState);
+        	
         }
 
     }
