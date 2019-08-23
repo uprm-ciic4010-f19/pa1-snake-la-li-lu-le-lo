@@ -121,10 +121,10 @@ public class Player {
           
 
                 if(playeLocation[i][j]){
-                    g.fillRect((i*handler.getWorld().GridPixelsize),
-                            (j*handler.getWorld().GridPixelsize),
-                            handler.getWorld().GridPixelsize,
-                            handler.getWorld().GridPixelsize);
+                    g.fillRect((i*handler.getWorld().GridPixelsize-1),
+                            (j*handler.getWorld().GridPixelsize-1),
+                            handler.getWorld().GridPixelsize-1,
+                            handler.getWorld().GridPixelsize-1);
                 }
                 if(handler.getWorld().appleLocation[i][j]) {
                 	Color pinku = new Color(255,110,199);
