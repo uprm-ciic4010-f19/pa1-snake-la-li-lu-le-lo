@@ -1,5 +1,6 @@
 package Game.Entities.Static;
 
+
 import Main.Handler;
 
 /**

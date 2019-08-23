@@ -34,7 +34,10 @@ public class Player {
     }
 
     public void tick(){
-        moveCounter++;
+    	int x = xCoord;
+    	int y = yCoord;
+        moveCounter+= 2;
+        
         if(moveCounter>=5) {
             checkCollisionAndMove();
             moveCounter=0;
@@ -47,6 +50,14 @@ public class Player {
             direction="Left";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
             direction="Right";
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+        	handler.getWorld().body.addFirst(new Tail(x, y,handler));
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
+        	moveCounter++; // Supposed to make fast
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
+        	moveCounter--; // Supposed to make slow
+        }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+        	// Pause State
         }
 
     }
@@ -100,14 +111,25 @@ public class Player {
 
     }
 
-    public void render(Graphics g,Boolean[][] playeLocation){
+    public void render(Graphics g, Boolean[][] playeLocation){
         Random r = new Random();
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-                g.setColor(Color.WHITE);
+            	
+            	Color dgreen = new Color(64,200,97);
+                g.setColor(dgreen);
+          
 
-                if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+                if(playeLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
+                            (j*handler.getWorld().GridPixelsize),
+                            handler.getWorld().GridPixelsize,
+                            handler.getWorld().GridPixelsize);
+                }
+                if(handler.getWorld().appleLocation[i][j]) {
+                	Color pinku = new Color(255,110,199);
+                	g.setColor(pinku);
+                	g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
