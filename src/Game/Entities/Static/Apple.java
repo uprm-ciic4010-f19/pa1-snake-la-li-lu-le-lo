@@ -1,6 +1,7 @@
 package Game.Entities.Static;
 
 
+import Game.Entities.Dynamic.Player;
 import Main.Handler;
 
 /**

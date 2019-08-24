@@ -60,10 +60,10 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
         	moveCounter--; // Supposed to make slow
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-        	// Pause State
-        	State.setState(handler.getGame().pauseState);
-        	
+        	// Command to pause
+        	State.setState(handler.getGame().pauseState);	
         }
+        
 
     }
 
@@ -73,6 +73,7 @@ public class Player {
         int y = yCoord;
         switch (direction){
             case "Left":
+            	//if snake touches snake = kill ***
                 if(xCoord==0){
                     handler.getWorld().player.xCoord = 59;
                 }else{
@@ -123,13 +124,12 @@ public class Player {
             	
             	Color dgreen = new Color(64,200,97);
                 g.setColor(dgreen);
-          
-
+     
                 if(playeLocation[i][j]){
-                    g.fillRect((i*handler.getWorld().GridPixelsize-1),
-                            (j*handler.getWorld().GridPixelsize-1),
-                            handler.getWorld().GridPixelsize-1,
-                            handler.getWorld().GridPixelsize-1);
+                    g.fillRect((i*handler.getWorld().GridPixelsize),
+                            (j*handler.getWorld().GridPixelsize),
+                            handler.getWorld().GridPixelsize-2,
+                            handler.getWorld().GridPixelsize-2);
                 }
                 if(handler.getWorld().appleLocation[i][j]) {
                 	Color pinku = new Color(255,110,199);
@@ -256,6 +256,8 @@ public class Player {
 
     public void kill(){
         lenght = 0;
+        //display game over screen
+        State.setState(handler.getGame().loseState);
         for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
             for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
