@@ -31,7 +31,7 @@ public class WorldOne extends WorldBase{
             int appleX = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
             int appley = new Random().nextInt(handler.getWorld().GridWidthHeightPixelCount-1);
 
-            //change coordinates till one is selected in which the player isnt standing
+            // Change coordinates until one is selected in which the player isn't standing
             boolean goodCoordinates=false;
             do{
                 if(!handler.getWorld().playerLocation[appleX][appley]){
@@ -39,9 +39,9 @@ public class WorldOne extends WorldBase{
                 }
             }while(!goodCoordinates);
 
-            apple = new Apple(handler,appleX,appley);
+            apple = new Apple(handler,appleX,appley,true);
             appleLocation[appleX][appley]=true;
-
+            // Set apple.good = false when x number of "steps" occur ***
         }
     }
 

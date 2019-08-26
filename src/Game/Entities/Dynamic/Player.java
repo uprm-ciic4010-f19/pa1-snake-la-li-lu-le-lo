@@ -71,9 +71,9 @@ public class Player {
         handler.getWorld().playerLocation[xCoord][yCoord]=false;
         int x = xCoord;
         int y = yCoord;
+        // Snake will die if it collides with itself ***
         switch (direction){
             case "Left":
-            	//if snake touches snake = kill ***
                 if(xCoord==0){
                     handler.getWorld().player.xCoord = 59;
                 }else{
@@ -151,6 +151,9 @@ public class Player {
         Tail tail= null;
         handler.getWorld().appleLocation[xCoord][yCoord]=false;
         handler.getWorld().appleOnBoard=false;
+        if (!handler.getWorld().apple.isGood()) {
+        	shed(); // Snake will lose segment if apple is bad
+        }
         switch (direction){
             case "Left":
                 if( handler.getWorld().body.isEmpty()){
@@ -252,6 +255,13 @@ public class Player {
         }
         handler.getWorld().body.addLast(tail);
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
+    }
+    
+    public void shed() { // Snake loses tail segment
+    	if (handler.getWorld().body.size()!=1) {
+    		handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y]=false;
+    		handler.getWorld().body.removeLast();
+    	}
     }
 
     public void kill(){

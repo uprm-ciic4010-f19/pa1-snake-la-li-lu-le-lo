@@ -13,15 +13,16 @@ public class Apple {
 
     public int xCoord;
     public int yCoord;
+    public boolean Good;
     
     public boolean isGood() {
-    	// Fix later
-    		return true;
+    		return Good;
     	}
-    public Apple(Handler handler,int x, int y){
+    public Apple(Handler handler,int x, int y, boolean good){
         this.handler=handler;
         this.xCoord=x;
         this.yCoord=y;
+        this.Good=good;
     }
 
 
