@@ -20,6 +20,7 @@ public class Player {
 
     public int xCoord;
     public int yCoord;
+    public int speed;
 
     public int moveCounter;
 
@@ -33,15 +34,16 @@ public class Player {
         direction= "Right";
         justAte = false;
         lenght= 1;
+        speed = 4;
 
     }
 
     public void tick(){
     	int x = xCoord;
     	int y = yCoord;
-        moveCounter+= 2;
+        moveCounter++;
         
-        if(moveCounter>=5) {
+        if(moveCounter>=speed) {
             checkCollisionAndMove();
             moveCounter=0;
         }
@@ -56,9 +58,9 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
         	handler.getWorld().body.addFirst(new Tail(x, y,handler));
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)){
-        	moveCounter++; // Supposed to make fast
+        	speed++; // Supposed to make fast
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)){
-        	moveCounter--; // Supposed to make slow
+        	speed--; // Supposed to make slow
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
         	// Command to pause
         	State.setState(handler.getGame().pauseState);	
