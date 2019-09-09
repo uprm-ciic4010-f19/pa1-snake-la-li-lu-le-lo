@@ -22,6 +22,7 @@ public class Player {
 	public int yCoord;
 	public int speed; 
 	public int steps; 
+	public int score;
 
 	public int moveCounter;
 
@@ -36,6 +37,7 @@ public class Player {
 		justAte = false;
 		lenght= 1;
 		speed = 4;
+		score=0;
 		steps = 0;
 	}
 
@@ -138,7 +140,9 @@ public class Player {
 
 				Color dgreen = new Color(64,200,97);
 				Color pinku = new Color(255,110,199);
-
+				g.setColor(Color.white);
+				g.setFont(new Font("Courier New", 1,20));// font of game
+				g.drawString("Score: "+this.score,340,30);// message of score
 
 				if(playeLocation[i][j]){
 					g.setColor(dgreen);
@@ -170,7 +174,9 @@ public class Player {
 		handler.getWorld().appleOnBoard=false;
 		if (!handler.getWorld().apple.isGood()) {
 			shed(); // Snake will lose segment if apple is bad
+			this.score= (int)( this.score - Math.sqrt(2*this.score+1));
 		}else {
+			this.score= (int)( this.score + Math.sqrt(2*this.score+1));
 			switch (direction){
 			case "Left":
 				if( handler.getWorld().body.isEmpty()){
