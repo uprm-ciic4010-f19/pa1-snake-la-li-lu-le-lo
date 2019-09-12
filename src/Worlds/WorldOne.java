@@ -39,9 +39,9 @@ public class WorldOne extends WorldBase{
                 }
             }while(!goodCoordinates);
 
-            apple = new Apple(handler,appleX,appley,true);
+            apple = new Apple(handler,appleX,appley,true,false);
             appleLocation[appleX][appley]=true;
-            // Set apple.good = false when x number of "steps" occur ***
+            
         }
     }
 

@@ -16,13 +16,17 @@ public class Player {
 
 	public int lenght;
 	public boolean justAte;
+	public boolean justAteBad;
 	private Handler handler;
 
 	public int xCoord;
 	public int yCoord;
-	public int speed; 
+	
+	public double speed; 
 	public int steps; 
 	public int score;
+	public int move;
+	public Color snakeColor;
 
 	public int moveCounter;
 
@@ -35,10 +39,13 @@ public class Player {
 		moveCounter = 0;
 		direction= "Right";
 		justAte = false;
+		justAteBad = false;
 		lenght= 1;
 		speed = 4;
 		score=0;
 		steps = 0;
+		move = 0;
+		snakeColor = new Color(64,200,97);;
 	}
 
 	public void tick(){
@@ -51,27 +58,37 @@ public class Player {
 			moveCounter=0;
 			steps++;
 		}
-		if (steps>100) {
+		if (steps>300) {
 			handler.getWorld().apple.Good = false; // Apple becomes rotten
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) && direction!="Down"){
+		}
+		
+		if (move<speed) {
+			move++;
+		}
+		if(move >= speed) {
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP) && direction!="Down"){
 			direction="Up";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) && direction!="Up"){
+			move = 0;
+		}else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN) && direction!="Up"){
 			direction="Down";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) && direction!= "Right"){
+			move = 0;
+		}else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT) && direction!= "Right"){
 			direction="Left";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) && direction !="Left"){
+			move = 0;
+		}else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT) && direction !="Left"){
 			direction="Right";
+			move = 0;
+		}
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
-			handler.getWorld().body.addFirst(new Tail(x, y,handler));
+			handler.getWorld().body.addFirst(new Tail(x, y,handler)); // Adds a tail
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ADD)){
-			speed--; // Supposed to make fast
+			speed-=0.1; // increases speed
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_SUBTRACT)){
-			speed++; // Supposed to make slow
+			speed+=0.1; // decreases speed
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			// Command to pause
 			State.setState(handler.getGame().pauseState);	
 		}
-
 
 	}
 
@@ -121,8 +138,12 @@ public class Player {
 		handler.getWorld().playerLocation[xCoord][yCoord]=true;
 
 
-		if(handler.getWorld().appleLocation[xCoord][yCoord]){
+		if(handler.getWorld().appleLocation[xCoord][yCoord]) {
 			Eat();
+		}
+		if (steps>5) {
+			handler.getWorld().player.justAte = false;
+			handler.getWorld().player.justAteBad = false;
 		}
 
 		if(!handler.getWorld().body.isEmpty()) {
@@ -134,22 +155,31 @@ public class Player {
 	}
 
 	public void render(Graphics g, Boolean[][] playeLocation){
-		Random r = new Random();
+		
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-
-				Color dgreen = new Color(64,200,97);
+				Random rand = new Random();
+				float G = rand.nextFloat();
+				
 				Color pinku = new Color(255,110,199);
 				g.setColor(Color.white);
-				g.setFont(new Font("Courier New", 1,20));// font of game
-				g.drawString("Score: "+this.score,340,30);// message of score
-
+				g.setFont(new Font("Courier", 1,20)); // Score Font
+				g.drawString("Score: "+this.score,340,30); // Score Display
+				
 				if(playeLocation[i][j]){
-					g.setColor(dgreen);
+					if (handler.getWorld().player.justAteBad){
+						g.setColor(new Color(G,G,G)); // Snake will appear static after eating rotten apple
+					} else if (handler.getWorld().player.justAte) {
+						g.setColor(Color.green); // Snake will turn green after eating apple
+					}
+					else {
+					g.setColor(handler.getWorld().player.snakeColor);
+					}
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize-2,
 							handler.getWorld().GridPixelsize-2);
+					
 				}
 				if(handler.getWorld().appleLocation[i][j]) {
 					if(handler.getWorld().apple.isGood()){
@@ -172,10 +202,17 @@ public class Player {
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
+		handler.getWorld().player.justAte = true;
 		if (!handler.getWorld().apple.isGood()) {
 			shed(); // Snake will lose segment if apple is bad
+			handler.getWorld().player.justAteBad = true;
 			this.score= (int)( this.score - Math.sqrt(2*this.score+1));
+			
 		}else {
+			if (this.speed>2) {
+				this.speed-= 0.08; // Increases speed relative to (student number + 1)/100
+				System.out.println(speed);
+			}
 			this.score= (int)( this.score + Math.sqrt(2*this.score+1));
 			switch (direction){
 			case "Left":

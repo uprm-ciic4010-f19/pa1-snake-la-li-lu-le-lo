@@ -1,7 +1,5 @@
 package Game.Entities.Static;
 
-
-import Game.Entities.Dynamic.Player;
 import Main.Handler;
 
 /**
@@ -18,12 +16,11 @@ public class Apple {
     public boolean isGood() {
     		return Good;
     	}
-    public Apple(Handler handler,int x, int y, boolean good){
+    public Apple(Handler handler,int x, int y, boolean good, boolean star){
         this.handler=handler;
         this.xCoord=x;
         this.yCoord=y;
         this.Good=good;
     }
-
 
 }
