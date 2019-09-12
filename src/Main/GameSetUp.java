@@ -1,9 +1,11 @@
 package Main;
 
 import Display.DisplayScreen;
+
 import Game.GameStates.GameState;
 import Game.GameStates.LoseState;
 import Game.GameStates.MenuState;
+import Game.GameStates.OptionState;
 import Game.GameStates.PauseState;
 import Game.GameStates.State;
 import Input.KeyManager;
@@ -47,6 +49,7 @@ public class GameSetUp implements Runnable {
     public State menuState;
     public State pauseState;
     public State loseState;
+    public State optionState;
 
     //Res.music
     private InputStream audioFile;
@@ -83,7 +86,8 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
-        loseState = new LoseState(handler); //GameOver
+        loseState = new LoseState(handler); //GameOver Screen
+        optionState = new OptionState(handler); //Options Screen
 
         State.setState(menuState);
 
@@ -121,7 +125,7 @@ public class GameSetUp implements Runnable {
 
     public void run(){
 
-        //initiallizes everything in order to run without breaking
+        //initializes everything in order to run without breaking
         init();
 
         int fps = 60;

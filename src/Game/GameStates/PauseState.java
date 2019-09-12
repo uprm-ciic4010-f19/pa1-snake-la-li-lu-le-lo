@@ -22,7 +22,7 @@ public class PauseState extends State {
 
         uiManager.addObjects(new UIImageButton(174, 720, 120, 56, Images.Options, () -> {
             handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+            State.setState(handler.getGame().optionState);
         }));
 
         uiManager.addObjects(new UIImageButton(500, 720, 120, 56, Images.BTitle, () -> {
@@ -56,6 +56,9 @@ public class PauseState extends State {
     @Override
     public void render(Graphics g) {
         g.drawImage(Images.Pause,0,0,800,800,null);
+        g.setColor(new Color(198,255,41));
+        g.setFont(new Font("Courier New",1,60));
+        g.drawString("" + handler.getWorld().player.score, 430, 626);
         uiManager.Render(g);
 
     }

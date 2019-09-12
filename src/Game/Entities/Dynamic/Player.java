@@ -2,8 +2,12 @@ package Game.Entities.Dynamic;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import Game.GameStates.State;
@@ -163,7 +167,7 @@ public class Player {
 				
 				Color pinku = new Color(255,110,199);
 				g.setColor(Color.white);
-				g.setFont(new Font("Courier", 1,20)); // Score Font
+				g.setFont(new Font("Courier New", 1,20)); // Score Font
 				g.drawString("Score: "+this.score,340,30); // Score Display
 				
 				if(playeLocation[i][j]){
@@ -211,7 +215,6 @@ public class Player {
 		}else {
 			if (this.speed>2) {
 				this.speed-= 0.08; // Increases speed relative to (student number + 1)/100
-				System.out.println(speed);
 			}
 			this.score= (int)( this.score + Math.sqrt(2*this.score+1));
 			switch (direction){

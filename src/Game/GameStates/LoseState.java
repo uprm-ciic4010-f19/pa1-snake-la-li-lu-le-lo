@@ -47,6 +47,9 @@ public class LoseState extends State {
     @Override
     public void render(Graphics g) {
         g.drawImage(Images.GameOver,0,0,800,800,null);
+        g.setColor(new Color(198,255,41));
+        g.setFont(new Font("Courier New",1,60));
+        g.drawString("" + handler.getWorld().player.score, 430, 626);
         uiManager.Render(g);
 
     }
