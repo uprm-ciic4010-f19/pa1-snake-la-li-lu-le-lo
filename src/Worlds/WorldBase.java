@@ -3,6 +3,7 @@ package Worlds;
 import Game.Entities.Dynamic.Player;
 import Game.Entities.Dynamic.Tail;
 import Game.Entities.Static.Apple;
+import Game.Entities.Static.Star;
 import Main.Handler;
 
 import java.awt.*;
@@ -31,6 +32,10 @@ public abstract class WorldBase {
     public Boolean appleOnBoard;
     public Apple apple;
     public Boolean[][] appleLocation;
+    
+    public Boolean starOnBoard;
+    public Star star;
+    public Boolean[][] starLocation;
 
     public Boolean[][] playerLocation;
 
@@ -41,6 +46,7 @@ public abstract class WorldBase {
         this.handler = handler;
 
         appleOnBoard = false;
+        starOnBoard = false;
 
 
 
@@ -52,9 +58,8 @@ public abstract class WorldBase {
     }
 
     public void render(Graphics g){
-
-        for (int i = 0; i <= 800; i = i + GridPixelsize) {
-        	Color purple = new Color(68,28,82);
+    	Color purple = new Color(68,28,82);
+        for (int i = 0; i <= 780; i = i + GridPixelsize) {
             g.setColor(purple);
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());

@@ -20,9 +20,10 @@ public class LoseState extends State {
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
-        uiManager.addObjects(new UIImageButton(300, 716, 198, 60, Images.Restart, () -> {
-            handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+        uiManager.addObjects(new UIImageButton(296, 700, 170, 50, Images.Restart, () -> {
+        	handler.getMouseManager().setUimanager(null);
+            handler.getGame().reStart();
+            State.setState(handler.getGame().gameState);
         }));
 
     }
@@ -46,10 +47,10 @@ public class LoseState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Images.GameOver,0,0,800,800,null);
+        g.drawImage(Images.GameOver,0,0,handler.getWidth(),handler.getHeight(),null);
         g.setColor(new Color(198,255,41));
         g.setFont(new Font("Courier New",1,60));
-        g.drawString("" + handler.getWorld().player.score, 430, 626);
+        g.drawString("" + handler.getWorld().player.score, 426, 612);
         uiManager.Render(g);
 
     }

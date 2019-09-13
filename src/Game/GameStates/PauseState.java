@@ -20,14 +20,14 @@ public class PauseState extends State {
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
-        uiManager.addObjects(new UIImageButton(174, 720, 120, 56, Images.Options, () -> {
+        uiManager.addObjects(new UIImageButton(171, 702, 120, 56, Images.Options, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().optionState);
         }));
 
-        uiManager.addObjects(new UIImageButton(500, 720, 120, 56, Images.BTitle, () -> {
-            handler.getMouseManager().setUimanager(null);
-            State.setState(handler.getGame().menuState);
+        uiManager.addObjects(new UIImageButton(484, 702, 120, 56, Images.BTitle, () -> {
+        	handler.getMouseManager().setUimanager(null);
+            System.exit(0);
         }));
 
 
@@ -55,10 +55,10 @@ public class PauseState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Images.Pause,0,0,800,800,null);
-        g.setColor(new Color(198,255,41));
+        g.drawImage(Images.Pause,0,0,handler.getWidth(),handler.getHeight(),null);
+        g.setColor(new Color(198,240,41));
         g.setFont(new Font("Courier New",1,60));
-        g.drawString("" + handler.getWorld().player.score, 430, 626);
+        g.drawString("" + handler.getWorld().player.score, 426, 612);
         uiManager.Render(g);
 
     }

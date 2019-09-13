@@ -14,31 +14,34 @@ public class OptionState extends State {
 
     private int count = 0;
     private UIManager uiManager;
+    public Color nured = new Color(230,0,18);
+    public Color nugreen = new Color(64,200,97);
+    public Color nublue = new Color(82,219,255);
 
     public OptionState(Handler handler) {
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUimanager(uiManager);
 
-        uiManager.addObjects(new UIImageButton(350, 720, 120, 56, Images.Resume, () -> {
+        uiManager.addObjects(new UIImageButton(330, 700, 120, 56, Images.Resume, () -> {
             handler.getMouseManager().setUimanager(null);
             State.setState(handler.getGame().pauseState);
         }));
-        uiManager.addObjects(new UIImageButton(265, 322, 40, 40, Images.OptionsB, () -> {
+        uiManager.addObjects(new UIImageButton(260, 312, 40, 40, Images.OptionsB, () -> {
             handler.getMouseManager().setUimanager(null);
-            handler.getWorld().player.snakeColor = new Color(64,200,97);
+            handler.getWorld().player.snakeColor = nugreen;
         }));
-        uiManager.addObjects(new UIImageButton(114, 372, 40, 40, Images.OptionsB, () -> {
+        uiManager.addObjects(new UIImageButton(110, 366, 40, 40, Images.OptionsB, () -> {
             handler.getMouseManager().setUimanager(null);
-            handler.getWorld().player.snakeColor = new Color(82,219,255);
+            handler.getWorld().player.snakeColor = nublue;
         }));
-        uiManager.addObjects(new UIImageButton(265, 422, 40, 40, Images.OptionsB, () -> {
+        uiManager.addObjects(new UIImageButton(260, 416, 40, 40, Images.OptionsB, () -> {
             handler.getMouseManager().setUimanager(null);
             handler.getWorld().player.snakeColor = Color.white;
         }));
-        uiManager.addObjects(new UIImageButton(114, 474, 40, 40, Images.OptionsB, () -> {
+        uiManager.addObjects(new UIImageButton(110, 460, 40, 40, Images.OptionsB, () -> {
             handler.getMouseManager().setUimanager(null);
-            handler.getWorld().player.snakeColor = Color.red;
+            handler.getWorld().player.snakeColor = nured;
         }));
       
 
@@ -63,7 +66,7 @@ public class OptionState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Images.Option,0,0,800,800,null);
+        g.drawImage(Images.Option,0,0,handler.getWidth(),handler.getHeight(),null);
         
         uiManager.Render(g);
 
